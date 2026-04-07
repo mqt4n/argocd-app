@@ -1,23 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: myapp-argo-application
-  namespace: argocd
+  name: mqt4n-argo-application
+  namespace: argocd-mqt4n
 spec:
-  project: default
-
-  source:
-    repoURL: https://github.com/ntquan/argocd-app.git
-    targetRevision: HEAD
-    path: dev
   destination:
+    namespace: myapp-mqt4n
     server: https://kubernetes.default.svc
-    namespace: myapp
-
+  source:
+    path: dev
+    repoURL: https://github.com/mqt4n/argocd-app.git
+    targetRevision: HEAD
+  sources: []
+  project: argocd-app
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
-
+      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
